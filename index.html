@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="phone-decrise" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="add-count-phone" type="text" class="form-control text-center" value="1">
+                           <button id="phone-incrise" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5> $ <span id="phoneUnitprice">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="case-decrise" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="add-count" type="text" class="form-control text-center" value="1">
+                           <button id="case-incrise" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span  id="caseUnitprice" >59</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5> $ <span id="total-price"> 1278</span> </h5>
+                        <h5>$ <span id="tax">0</span></h5>
+                        <h5> $ <span id="totalAll"> 1278</span> </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+
+<script>
+   //for phone
+document.getElementById('phone-incrise').addEventListener('click',function(){
+
+   procuct(true,"add-count-phone", 'phoneUnitprice' , 1219);
+   calculateTotal();
+})
+
+document.getElementById('phone-decrise').addEventListener('click',function(){
+
+   procuct(false,"add-count-phone", 'phoneUnitprice', 1219);
+   calculateTotal();
+})
+
+
+//for phone-case
+
+document.getElementById('case-incrise').addEventListener('click',function(){
+
+   procuct(true,"add-count", 'caseUnitprice', 59);
+   calculateTotal();
+})
+
+document.getElementById('case-decrise').addEventListener('click',function(){
+
+   procuct(false,"add-count", 'caseUnitprice',  59 );
+   calculateTotal();
+})
+
+
+
+function procuct (isIncrise, id, unitId,  price ){
+      const addCase = document.getElementById(id);
+      const intaddCase = parseInt(addCase.value);
+      let newCasecount = intaddCase;
+      if(isIncrise == true){
+         newCasecount= intaddCase +1;
+      } 
+      if(isIncrise == false && newCasecount>0){
+         newCasecount = intaddCase -1;
+      }
+
+      addCase.value=newCasecount;
+      document.getElementById(unitId).innerText = price * newCasecount;
+}
+
+function calculateTotal(){
+
+   const phoneInput = document.getElementById('add-count-phone');
+   const phoneCount = parseInt(phoneInput.value);
+
+   const caseInput = document.getElementById('add-count');
+   const caseCount = parseInt(caseInput.value);
+
+   const totalPrice = document.getElementById('total-price').innerText= parseInt((phoneCount * 1219) + (caseCount * 59));
+   const totalTax = document.getElementById('tax').innerText=parseInt(totalPrice * 0.1 ) ;
+   document.getElementById('totalAll').innerText= totalPrice + totalTax;
+}
+
+</script>
+
+</body>
+
+</html>
